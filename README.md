@@ -1,6 +1,6 @@
 # Termy GPT
 
-Your terminal AI assistant supported [OpenAI API](https://platform.openai.com/docs/api-reference/making-requests).
+Your terminal AI assistant supported by [OpenAI API](https://platform.openai.com/docs/api-reference/making-requests).
 
 ## Authenticate
 
