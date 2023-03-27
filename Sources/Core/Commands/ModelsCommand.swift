@@ -15,9 +15,24 @@ struct ModelsCommand: ParsableCommand, AsyncParsableCommand {
         abstract: "Lists the currently available models, and provides basic information about each one such as the owner and availability."
     )
     
+    @Option(
+        name: .shortAndLong,
+        help: "Retrieves a model instance, providing basic information about the model such as the owner."
+    )
+    private var identifier: String?
+    
     func runAsync() async throws {
-        let models = try await AIClient.shared.ai.models.list()
+        if let identifier = identifier {
+            let model = try await Model.with(id: identifier)
+            
+            Log.message(model.description)
+        } else {
+            let models = try await Model.all
 
-        print("Models count:", models.description)
+            Log.message("\(models.count) available models:\n")
+            models.forEach { Log.message($0.description) }
+        }
+        
+        
     }
 }
