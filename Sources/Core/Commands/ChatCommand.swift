@@ -1,5 +1,5 @@
 //
-//  CreateCompletionsCommand.swift
+//  ChatCommand.swift
 //  
 //
 //  Created by Amarildo João Custódio Lucas on 27/03/23.
@@ -9,20 +9,20 @@ import ArgumentParser
 import Foundation
 import OpenAIKit
 
-struct CreateCompletionsCommand: ParsableCommand {
+struct ChatCommand: ParsableCommand {
     static let configuration = CommandConfiguration(
-        commandName: "create-completions",
+        commandName: "chat",
         abstract: """
-        Given a prompt, the model will return one or more predicted completions.
+        Given a chat conversation, the model will return a chat completion response.
         """
     )
     
     @Argument(help:
         """
-        The prompt(s) to generate completions for, encoded as a string.
+        The messages to generate chat completions for, in the chat format.
         """
     )
-    private var prompt: String
+    private var message: String
 
     @Option(
         name: .long,
@@ -49,15 +49,15 @@ struct CreateCompletionsCommand: ParsableCommand {
     private var temperature: Double?
 }
 
-extension CreateCompletionsCommand: AsyncParsableCommand {
+extension ChatCommand: AsyncParsableCommand {
     func runAsync() async throws {
-        let completion = try await Completion.with(
-            model: Model.Identifier(id: model ?? Model.defaultCompletions),
-            text: prompt,
+        let chat = try await Chat.with(
+            model: Model.Identifier(id: model ?? Model.defaultChat),
+            message: message,
             maxTokens: maxTokens ?? Constants.defaultMaxTokens,
             temperature: temperature ?? Constants.defaultTemperature
         )
-        
-        Log.message(completion.description)
+
+        Log.message(chat.description)
     }
 }

@@ -18,7 +18,8 @@ public struct Termy: ParsableCommand {
         version: Self.version,
         subcommands: [
             ModelsCommand.self,
-            CreateCompletionsCommand.self
+            CreateCompletionsCommand.self,
+            ChatCommand.self
         ]
     )
     

@@ -9,12 +9,10 @@ import Foundation
 import OpenAIKit
 
 extension Model {
-    struct Identifier: ModelID {
-        var id: String
-    }
+    struct Identifier: ModelID { var id: String }
     
     static let defaultCompletions = "text-davinci-003"
-    static let defaultChat = "text-davinci-003"
+    static let defaultChat = "gpt-3.5-turbo"
     static let defaultEdits = "text-davinci-003"
     
     static var all: [Model] {
