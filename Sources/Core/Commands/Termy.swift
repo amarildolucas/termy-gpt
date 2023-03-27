@@ -16,7 +16,10 @@ public struct Termy: ParsableCommand {
         commandName: "termy",
         abstract: "Your terminal AI assistant.",
         version: Self.version,
-        subcommands: [ModelsCommand.self]
+        subcommands: [
+            ModelsCommand.self,
+            CreateCompletionsCommand.self
+        ]
     )
     
     public init() {}

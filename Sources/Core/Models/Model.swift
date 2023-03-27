@@ -9,6 +9,14 @@ import Foundation
 import OpenAIKit
 
 extension Model {
+    struct Identifier: ModelID {
+        var id: String
+    }
+    
+    static let defaultCompletions = "text-davinci-003"
+    static let defaultChat = "text-davinci-003"
+    static let defaultEdits = "text-davinci-003"
+    
     static var all: [Model] {
         get async throws {
             try await AIClient.shared.ai.models.list()

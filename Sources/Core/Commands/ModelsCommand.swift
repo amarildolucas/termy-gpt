@@ -9,10 +9,12 @@ import ArgumentParser
 import Foundation
 import OpenAIKit
 
-struct ModelsCommand: ParsableCommand, AsyncParsableCommand {
+struct ModelsCommand: ParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "models",
-        abstract: "Lists the currently available models, and provides basic information about each one such as the owner and availability."
+        abstract: """
+        Lists the currently available models, and provides basic information about each one such as the owner and availability.
+        """
     )
     
     @Option(
@@ -20,7 +22,9 @@ struct ModelsCommand: ParsableCommand, AsyncParsableCommand {
         help: "Retrieves a model instance, providing basic information about the model such as the owner."
     )
     private var identifier: String?
-    
+}
+
+extension ModelsCommand: AsyncParsableCommand {
     func runAsync() async throws {
         if let identifier = identifier {
             let model = try await Model.with(id: identifier)
@@ -32,7 +36,5 @@ struct ModelsCommand: ParsableCommand, AsyncParsableCommand {
             Log.message("\(models.count) available models:\n")
             models.forEach { Log.message($0.description) }
         }
-        
-        
     }
 }
